@@ -313,5 +313,5 @@ def main():
     print("Parsed and sorted hosts.")
     print("Drawing diagram...")
     draw_main(hosts,file_path,file_name,max_host_per_row)
-    print(f"Diagram generated at {file_path}{file_name}")
+    print(f"Diagram generated at {file_path}/{file_name}")
 main()
