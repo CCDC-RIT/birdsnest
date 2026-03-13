@@ -1,5 +1,0 @@
-python
-pip
-nano
-python3.9-devel
-groupinstall "Development Tools"

@@ -1,3 +1,0 @@
-script_src: files/cleanup.py
-unix_script_path: /tmp/cleanup.py
-win_script_path: C:\Windows\Temp\payload.py

@@ -1,3 +1,0 @@
-pyopenssl
-pywin32
-#nuitka
