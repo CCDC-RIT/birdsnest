@@ -308,9 +308,9 @@ def periodic_ansible(interval=5):
                 time.sleep(interval)
                 continue
             if item.ansible_venv:
-                command = f"source {item.ansible_venv} && cd {item.ansible_folder} && ansible-playbook {item.ansible_playbook} -i {item.ansible_inventory} -l {item.dest_ip} -t stabvest_client_auto {item.extra_vars}"
+                command = f"source {item.ansible_venv} && cd {item.ansible_folder} && ansible-playbook {item.ansible_playbook} -i {item.ansible_inventory} -l {item.dest_ip} -t magpie_client_auto {item.extra_vars}"
             else:
-                command = f"cd {item.ansible_folder} && ansible-playbook {item.ansible_playbook} -i {item.ansible_inventory} -l {item.dest_ip} -t stabvest_client_auto {item.extra_vars}"
+                command = f"cd {item.ansible_folder} && ansible-playbook {item.ansible_playbook} -i {item.ansible_inventory} -l {item.dest_ip} -t magpie_client_auto {item.extra_vars}"
             logger.info(f"periodic_ansible(): starting subprocess for task {item.id}")
             result = subprocess.run(
                 command,

@@ -503,7 +503,7 @@ def main():
     while True:
         print("="*LINE_SIZE)
         print(f"={'':^{LINE_SIZE-2}}=")
-        print(f"={'Stabvest Tester':^{LINE_SIZE-2}}=")
+        print(f"={'Magpie Tester':^{LINE_SIZE-2}}=")
         print(f"={'':^{LINE_SIZE-2}}=")
         print("="*LINE_SIZE)
         print()

@@ -124,7 +124,7 @@ def add_test_data_agents(num=5):
     try:
         for i in range(1,num + 1):
             agent_name = ["apache2","iis","smb","mysql","vsftpd"][i-1]
-            agent_type = random.choice(["stabvest","owlet"])
+            agent_type = random.choice(["magpie","owlet"])
             possible_hostnames = ["webserver1","webserver2","fileshare1","fileshare2","dc01"]
             hostname = possible_hostnames[i-1]
             possible_ips = ["10.1.1.1","10.1.1.2","10.1.1.3","10.1.1.4","10.1.1.5"]
@@ -175,8 +175,8 @@ def add_test_data_messages(num=15):
                     "Service - Missing required package {package} for service {service}, DISARMED.",
                     "Service - Service {service_name} not running, RESTORED service to START state.",
                     "Service - Service {service_name} not set to automatic start, FAILED to set to automatic start.",
-                    "Firewall - Default {direction} policy is deny_all and no specific {direction.lower()} allow rule for port {port} exists. SUCCESSFULLY created firewall rule Stabvest_Rule_{port}_{direction}_{action}.",
-                    "Firewall - Default {direction} policy is deny_all and no specific {direction.lower()} allow rule for port {port} exists. DISARMED, but told to create firewall rule Stabvest_Rule_{port}_{direction}_{action}.",
+                    "Firewall - Default {direction} policy is deny_all and no specific {direction.lower()} allow rule for port {port} exists. SUCCESSFULLY created firewall rule Magpie_Rule_{port}_{direction}_{action}.",
+                    "Firewall - Default {direction} policy is deny_all and no specific {direction.lower()} allow rule for port {port} exists. DISARMED, but told to create firewall rule Magpie_Rule_{port}_{direction}_{action}.",
                     "Firewall - SUCCESSFULLY removed firewall rule: {rule['Name']}/{rule['DisplayName']}: {rule['Action']} {port} {rule['Direction']} on profile {rule['Profile']}.",
                     "Firewall - Could not get firewall rule information due to PowerShell error.",
                     "Interface - Interface {interface} was set to DOWN, RESTORED UP state.",
@@ -221,8 +221,8 @@ def add_test_data_incidents(num=15,createAlert=True):
                 "Service - Missing required package {package} for service {service}, DISARMED.",
                 "Service - Service {service_name} not running, RESTORED service to START state.",
                 "Service - Service {service_name} not set to automatic start, FAILED to set to automatic start.",
-                "Firewall - Default {direction} policy is deny_all and no specific {direction.lower()} allow rule for port {port} exists. SUCCESSFULLY created firewall rule Stabvest_Rule_{port}_{direction}_{action}.",
-                "Firewall - Default {direction} policy is deny_all and no specific {direction.lower()} allow rule for port {port} exists. DISARMED, but told to create firewall rule Stabvest_Rule_{port}_{direction}_{action}.",
+                "Firewall - Default {direction} policy is deny_all and no specific {direction.lower()} allow rule for port {port} exists. SUCCESSFULLY created firewall rule Magpie_Rule_{port}_{direction}_{action}.",
+                "Firewall - Default {direction} policy is deny_all and no specific {direction.lower()} allow rule for port {port} exists. DISARMED, but told to create firewall rule Magpie_Rule_{port}_{direction}_{action}.",
                 "Firewall - SUCCESSFULLY removed firewall rule: {rule['Name']}/{rule['DisplayName']}: {rule['Action']} {port} {rule['Direction']} on profile {rule['Profile']}.",
                 "Firewall - Could not get firewall rule information due to PowerShell error.",
                 "Interface - Interface {interface} was set to DOWN, RESTORED UP state.",

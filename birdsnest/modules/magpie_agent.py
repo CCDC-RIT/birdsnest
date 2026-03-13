@@ -21,8 +21,8 @@ run_git, hash_id, create_incident, clean_and_join_path, get_git_stats, find_inci
 )
 from modules.generic_agent import beacon_generic
 logger = setup_logging("web")
-def beacon_stabvest():
-    returnMsg, returnCode, registered, agent_id, current_time = beacon_generic("/agent/beacon/stabvest")
+def beacon_magpie():
+    returnMsg, returnCode, registered, agent_id, current_time = beacon_generic("/agent/beacon/magpie")
     if returnCode != 200:
         return returnMsg, returnCode
     data = request.json
@@ -43,22 +43,22 @@ def beacon_stabvest():
         db.session.commit()
     except Exception as e:
         db.session.rollback()
-        logger.error(f"/beacon_stabvest - Failed to create message for agent {agent_id}: {e}")
+        logger.error(f"/beacon_magpie - Failed to create message for agent {agent_id}: {e}")
     if registered:
         repo_path = os.path.join(GIT_PROJECT_ROOT,f"{agent_id}.git")
         if os.path.exists(repo_path):
             if os.path.isdir(repo_path):
                 shutil.rmtree(repo_path)
-                logger.info(f"/beacon_stabvest: removed existing repo at {repo_path} as part of re-registration logic")
+                logger.info(f"/beacon_magpie: removed existing repo at {repo_path} as part of re-registration logic")
             else:
                 os.remove(repo_path)
-                logger.warning(f"/beacon_stabvest: removed existing repo at {repo_path} as part of re-registration logic - but it was a file instead of a folder?")
+                logger.warning(f"/beacon_magpie: removed existing repo at {repo_path} as part of re-registration logic - but it was a file instead of a folder?")
         try:
             run_git(["init", "--bare", f"{agent_id}.git"],GIT_PROJECT_ROOT)
             run_git(["config", "-f", f"{agent_id}.git/config", "http.receivepack", "true"],GIT_PROJECT_ROOT)
-            logger.info(f"/beacon_stabvest: created repo {os.path.join(GIT_PROJECT_ROOT,f'{agent_id}.git')}")
+            logger.info(f"/beacon_magpie: created repo {os.path.join(GIT_PROJECT_ROOT,f'{agent_id}.git')}")
         except subprocess.CalledProcessError as e:
-            logger.error(f"/beacon_stabvest: Error occurred when creating git repo {repo_path} - {e.stderr}")
+            logger.error(f"/beacon_magpie: Error occurred when creating git repo {repo_path} - {e.stderr}")
             return returnMsg, 500
     if oldStatus == False:
         incident_data = {

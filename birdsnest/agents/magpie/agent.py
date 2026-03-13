@@ -38,7 +38,7 @@ CONFIG_DEFAULTS = {
     "MTU_DEFAULT": 1300,
     "MTU_MAX": 1514,
     "LINUX_DEFAULT_TTL": 64,
-    "AGENT_TYPE": "stabvest"
+    "AGENT_TYPE": "magpie"
 }
 def service_backup(service):
     system = platform.system()
@@ -1002,7 +1002,7 @@ def firewall_rules_create(port,direction,action):
     else:
         return firewall_rules_create_linux(port,direction,action)
 def firewall_rules_create_windows(port,direction,action):
-    rule_name = f"Stabvest_Rule_{port}_{direction}_{action}"
+    rule_name = f"Magpie_Rule_{port}_{direction}_{action}"
     ps_cmd = fr"""
     New-NetFirewallRule -DisplayName "{rule_name}" `
                         -Direction {direction} `
@@ -1012,11 +1012,11 @@ def firewall_rules_create_windows(port,direction,action):
                         -ErrorAction Stop
     """
     if DISARM:
-        return False, [f"DISARMED, but told to create firewall rule Stabvest_Rule_{port}_{direction}_{action}"] 
+        return False, [f"DISARMED, but told to create firewall rule Magpie_Rule_{port}_{direction}_{action}"] 
     if run_powershell(ps_cmd):
-        return True, [f"SUCCESSFULLY created firewall rule Stabvest_Rule_{port}_{direction}_{action}"]
+        return True, [f"SUCCESSFULLY created firewall rule Magpie_Rule_{port}_{direction}_{action}"]
     else:
-        return False, [f"FAILED to create firewall rule Stabvest_Rule_{port}_{direction}_{action}"]
+        return False, [f"FAILED to create firewall rule Magpie_Rule_{port}_{direction}_{action}"]
 def firewall_rules_create_linux(port, direction, action, protocol="tcp"):
     issues = []
     if direction.lower() == "inbound":
@@ -1692,13 +1692,13 @@ def service_main(services,packages,service_backups):
 def pause_countdown(seconds=60):
     return resume(True)
 def pause(seconds=60):
-    send_message("agent/beacon/stabvest",True,True,f"pausing for seconds {seconds}")
+    send_message("agent/beacon/magpie",True,True,f"pausing for seconds {seconds}")
     return True
 def resume(scheduled=False):
-    send_message("agent/beacon/stabvest",True,True,f"resuming - scheduled: {scheduled}")
+    send_message("agent/beacon/magpie",True,True,f"resuming - scheduled: {scheduled}")
     return True
 def reregister():
-    send_message("agent/beacon/stabvest",True,True,"reregister")
+    send_message("agent/beacon/magpie",True,True,"reregister")
     return True
 def init_int_vars(interface=interface_get_primary()):
     system = platform.system()
@@ -1789,7 +1789,7 @@ def main(stop_event=None):
     agent_id = hash_id(AGENT_NAME, systemInfo["hostname"], systemInfo["ipadd"], systemInfo["os"])
     repo_url = os.path.join(f"{SERVER_URL}agent/git",f"{agent_id}.git")
     repo_dir = f"{os.path.join(os.path.dirname(os.path(__file__).resolve()),f'{agent_id}.git')}"
-    send_message("agent/beacon/stabvest",True,True,f"Register")
+    send_message("agent/beacon/magpie",True,True,f"Register")
     setup_git_agent(repo_dir,PROTECTED_FOLDERS)
     oldStatus = True
     newStatus = True
@@ -1835,9 +1835,9 @@ def main(stop_event=None):
             PAUSED = pausedStatus
             if PAUSED:
                 suppressed_send = True
-                send_message("agent/beacon/stabvest",False,False,f"Agent moved into PAUSE status for {int(pausedEpochLocal - time.time())} seconds")
+                send_message("agent/beacon/magpie",False,False,f"Agent moved into PAUSE status for {int(pausedEpochLocal - time.time())} seconds")
             else:
-                send_message("agent/beacon/stabvest",True,True,f"Agent moved into ACTIVE status (from PAUSE)")
+                send_message("agent/beacon/magpie",True,True,f"Agent moved into ACTIVE status (from PAUSE)")
         if not PAUSED:
             print_debug(f"main(): running firewall checks")
             result_oldStatus, result_newStatus, result_issues = firewall_main(PORTS)
@@ -1849,7 +1849,7 @@ def main(stop_event=None):
                 newIssues.append(f"Firewall - {issue}")
                 print_debug(newIssues[-1])
                 if newIssues[-1] not in oldIssues:
-                    send_message("agent/beacon/stabvest",result_oldStatus,result_newStatus,newIssues[-1])
+                    send_message("agent/beacon/magpie",result_oldStatus,result_newStatus,newIssues[-1])
                     sent_msg = True
                 else:
                     suppressed_send = True
@@ -1863,7 +1863,7 @@ def main(stop_event=None):
                 newIssues.append(f"Interface - {issue}")
                 print_debug(newIssues[-1])
                 if newIssues[-1] not in oldIssues:
-                    send_message("agent/beacon/stabvest",result_oldStatus,result_newStatus,newIssues[-1])
+                    send_message("agent/beacon/magpie",result_oldStatus,result_newStatus,newIssues[-1])
                     sent_msg = True
                 else:
                     suppressed_send = True
@@ -1877,7 +1877,7 @@ def main(stop_event=None):
                 newIssues.append(f"Service - {issue}")
                 print_debug(newIssues[-1])
                 if newIssues[-1] not in oldIssues:
-                    send_message("agent/beacon/stabvest",result_oldStatus,result_newStatus,newIssues[-1])
+                    send_message("agent/beacon/magpie",result_oldStatus,result_newStatus,newIssues[-1])
                     sent_msg = True
                 else:
                     suppressed_send = True
@@ -1894,15 +1894,15 @@ def main(stop_event=None):
                 newIssues.append(f"File - {issue}")
                 print_debug(newIssues[-1])
                 if newIssues[-1] not in oldIssues:
-                    send_message("agent/beacon/stabvest",result_oldStatus,result_newStatus,newIssues[-1])
+                    send_message("agent/beacon/magpie",result_oldStatus,result_newStatus,newIssues[-1])
                     sent_msg = True
                 else:
                     suppressed_send = True
             if not sent_msg:
                 if suppressed_send:
-                    send_message("agent/beacon/stabvest",True,True,"no new issues; at least one prior issue still exists but suppressing redundant alert")
+                    send_message("agent/beacon/magpie",True,True,"no new issues; at least one prior issue still exists but suppressing redundant alert")
                 else:
-                    send_message("agent/beacon/stabvest",True,True,"all good")
+                    send_message("agent/beacon/magpie",True,True,"all good")
             print_debug(f"main(): oldStatus - {oldStatus}")
             print_debug(f"main(): newStatus - {newStatus}")
             print_debug(f"main(): sleeping for {SLEEPTIME} seconds")
@@ -1911,7 +1911,7 @@ def main(stop_event=None):
             newIssues = []
         else:
             if not suppressed_send:
-                send_message("agent/beacon/stabvest",True,False,f"Agent still in PAUSE status for {int(pausedEpochLocal - time.time())} seconds remaining")
+                send_message("agent/beacon/magpie",True,False,f"Agent still in PAUSE status for {int(pausedEpochLocal - time.time())} seconds remaining")
         """
         system = platform.system()
         if system == "Windows":
