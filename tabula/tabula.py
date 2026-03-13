@@ -80,7 +80,7 @@ def draw_main(hosts,file_path,file_name,max_host_per_row = 4):
     file = drawpyo.File()
     file.file_path = file_path
     file.file_name = file_name
-    page = drawpyo.Page()
+    page = drawpyo.Page(file=file)
     page.grid = 0
     page.background = "#ffffff"
     text = drawpyo.diagram.text_format.TextFormat(
@@ -313,5 +313,5 @@ def main():
     print("Parsed and sorted hosts.")
     print("Drawing diagram...")
     draw_main(hosts,file_path,file_name,max_host_per_row)
-    print(f"Diagram generated at {file_path}{file_name}")
+    print(f"Diagram generated at {file_path}/{file_name}")
 main()
