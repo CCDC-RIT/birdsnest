@@ -60,19 +60,19 @@ def get_os_string(full_os_str):
     if "fedora" in full_os_str:
         return "https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Fedora_icon_%282021%29.svg/1280px-Fedora_icon_%282021%29.svg.png"
     if "debian" in full_os_str:
-        return "https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Openlogo-debianV2.svg/640px-Openlogo-debianV2.svg.png"
+        return "https://upload.wikimedia.org/wikipedia/commons/d/d1/Ardebian_logo_512_0.png"
     if "alpine" in full_os_str:
         return "https://distrosea.com/distro-icons/alpine.svg"
     if "rocky" in full_os_str:
         return "https://upload.wikimedia.org/wikipedia/commons/7/77/Rocky_Linux_logo.svg"
     if "centos" in full_os_str:
-        return "https://commons.wikimedia.org/wiki/File:CentOS_color_logo.svg"
+        return "https://upload.wikimedia.org/wikipedia/commons/6/63/CentOS_color_logo.svg"
     if "rhel" in full_os_str:
         return "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Red_Hat_logo.svg/960px-Red_Hat_logo.svg.png"
     if "amazon" in full_os_str:
-        return "https://icon2.cleanpng.com/20180817/vog/8968d0640f2c4053333ce7334314ef83.webp"
+        return "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Aws_image.png/960px-Aws_image.png"
     if "suse" in full_os_str:
-        return "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/OpenSUSE_Button.svg/640px-OpenSUSE_Button.svg.png"
+        return "https://upload.wikimedia.org/wikipedia/commons/c/c7/Exquisite-suse.svg"
     if "solaris" in full_os_str:
         return "https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Solaris_9_logo.svg/960px-Solaris_9_logo.svg.png"
     return "https://symbols.getvecta.com/stencil_240/79_fileserver.c500813aaa.png"
