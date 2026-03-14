@@ -341,20 +341,20 @@ def send_message(endpoint,oldStatus=True,newStatus=True,message="",authInfo=None
     return False
 def get_native_parser():
     if os.path.exists("/etc/debian_version"):
-        return DebianAuthParser(), "/var/log/auth.log", JournalAuthWatcher()
+        return DebianAuthParser, "/var/log/auth.log", JournalAuthWatcher
     elif os.path.exists("/etc/redhat-release") or os.path.exists("/etc/rocky-release"):
-        return RedHatParser(), "/var/log/secure", JournalAuthWatcher()
+        return RedHatParser, "/var/log/secure", JournalAuthWatcher
     elif os.path.exists("/etc/alpine-release"):
-        return AlpineParser(), "/var/log/messages", AuthWatcher()
+        return AlpineParser, "/var/log/messages", AuthWatcher
     elif os.uname().sysname == "FreeBSD":
-        return FreeBSDParser(), "/var/log/auth.log", AuthWatcher()
+        return FreeBSDParser, "/var/log/auth.log", AuthWatcher
     elif "windows" in platform.system().lower():
         if not WINDOWS_LIBS_LOADED:
             print_debug("CRITICAL: Windows detected but pywin32 not installed.")
             return None, None, None
-        return WindowsAuthParser(), "N/A", WindowsAuthWatcher()
+        return WindowsAuthParser, "N/A", WindowsAuthWatcher
     else:
-        return DebianAuthParser(), "/var/log/auth.log", AuthWatcher()
+        return DebianAuthParser, "/var/log/auth.log", AuthWatcher
 class BaseParser:
     def parse_line(self, line):
         raise NotImplementedError("Each parser must implement parse_line")
