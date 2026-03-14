@@ -102,7 +102,7 @@ def get_config():
     auth_token_record = AuthTokenAgent.query.filter_by(agent_id=agent_id).first()
     if not auth_token_record:
         logger.warning(f"/list_authconfig_agent - Failed connection from {request.remote_addr} - invalid auth token. Full details: {[agent_name, agent_type, hostname, ip, os_name, executionUser, executionAdmin, auth]}")
-        return "Unauthorized", 403
+        return "unauthorized - no/bad auth", 403
     logger.info(f"/list_authconfig_agent - Successful connection from {request.remote_addr}.")
     entries = AuthConfig.query.all()
     config = {
@@ -128,7 +128,7 @@ def get_global_config_agent():
     auth_token_record = AuthTokenAgent.query.filter_by(agent_id=agent_id).first()
     if not auth_token_record:
         logger.warning(f"/agent/list_authconfigglobal - Failed connection from {request.remote_addr} - invalid auth token. Full details: {[agent_name, agent_type, hostname, ip, os_name, executionUser, executionAdmin, auth]}")
-        return "Unauthorized", 403
+        return "unauthorized - no/bad auth", 403
     logger.info(f"/agent/list_authconfigglobal - Successful connection from {request.remote_addr}.")
     configs = AuthConfigGlobal.query.all()
     return jsonify({c.key: c.value for c in configs})

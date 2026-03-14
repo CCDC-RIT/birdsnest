@@ -330,6 +330,7 @@ def periodic_ansible(interval=5):
             logger.info(f"periodic_ansible(): finished task {newResult.task}. Returncode: {result.returncode}")
         time.sleep(1)
 def periodic_cleanup():
+    logger.info("periodic_cleanup() started.")
     while True:
         try:
             with app.app_context():
@@ -355,9 +356,9 @@ if __name__ == "__main__":
     ]
     for t in threads:
         t.start()
-    logger.info("Started background worker threads.")
     with open("/tmp/worker_ready", "w") as f:
         f.write("ready")
+    logger.info("Started background worker threads.")
     try:
         while True:
             time.sleep(1)
